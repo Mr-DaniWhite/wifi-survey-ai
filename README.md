@@ -1,42 +1,56 @@
 # WiFi Survey AI
 
-WiFi Survey AI es una herramienta de diagnóstico de redes WiFi para Windows que recopila información de la conexión inalámbrica, analiza el rendimiento de la red y genera un informe inteligente utilizando un modelo LLM ejecutado localmente con Ollama.
+> AI-powered WiFi diagnostics for Windows using Ollama and Gemma 3.
 
-## Características
+WiFi Survey AI is a Python application that collects wireless network information from Windows, performs connectivity tests, and generates an AI-powered technical report using a locally running Large Language Model (LLM) through Ollama.
 
-- 📶 Captura información de la interfaz WiFi (`netsh`)
-- 📡 Escanea redes cercanas
-- 🏓 Ejecuta pruebas de latencia (Ping)
-- 🚀 Ejecuta Speedtest CLI (Ookla)
-- 📊 Calcula métricas básicas de calidad
-- 🤖 Genera un informe técnico mediante Gemma 3 ejecutándose en Ollama
-- 💾 Guarda un snapshot JSON con todos los datos recopilados
+---
 
-## Arquitectura
+## Features
 
+- 📶 Collects WiFi interface information (`netsh`)
+- 📡 Scans nearby wireless networks
+- 🏓 Measures latency using Ping
+- 🚀 Runs Ookla Speedtest CLI
+- 📊 Performs basic WiFi quality analysis
+- 🤖 Generates an AI-powered report using Gemma 3 via Ollama
+- 💾 Exports a complete JSON snapshot
+- 📄 Produces a Markdown technical report
+
+---
+
+## Project Structure
+
+```text
+wifi-survey-ai/
+│
+├── analyzer/
+│   └── scoring.py
+│
+├── collector/
+│   ├── models.py
+│   ├── parser.py
+│   ├── ping.py
+│   ├── speedtest.py
+│   └── windows.py
+│
+├── llm/
+│   ├── analyzer.py
+│   ├── client.py
+│   ├── config.py
+│   └── prompt.py
+│
+├── data/
+├── reports/
+│
+├── app.py
+├── pyproject.toml
+└── README.md
 ```
-collector/
-    windows.py
-    parser.py
-    ping.py
-    speedtest.py
 
-analyzer/
-    scoring.py
+---
 
-llm/
-    config.py
-    client.py
-    prompt.py
-    analyzer.py
-
-data/
-reports/
-
-app.py
-```
-
-## Requisitos
+## Requirements
 
 - Windows 11
 - Python 3.13+
@@ -45,19 +59,29 @@ app.py
 - Gemma 3
 - Ookla Speedtest CLI
 
-## Instalación
+---
+
+## Installation
+
+Clone the repository:
 
 ```bash
 git clone https://github.com/Mr-DaniWhite/wifi-survey-ai.git
 
 cd wifi-survey-ai
+```
 
+Install dependencies:
+
+```bash
 uv sync
 ```
 
-## Configuración
+---
 
-Crear un archivo `.env`
+## Configuration
+
+Create a `.env` file in the project root:
 
 ```text
 OLLAMA_URL=http://localhost:11434
@@ -65,17 +89,23 @@ OLLAMA_MODEL=gemma3:4b
 OLLAMA_TIMEOUT=300
 ```
 
-## Ejecución
+---
+
+## Usage
+
+Run the application:
 
 ```bash
 uv run app.py
 ```
 
-## Salida
+---
 
-Se generan automáticamente:
+## Output
 
-```
+The application automatically generates:
+
+```text
 data/
     wifi_snapshot.json
 
@@ -83,22 +113,50 @@ reports/
     report.md
 ```
 
+---
+
+## Technologies
+
+- Python 3.13
+- uv
+- Ollama
+- Gemma 3
+- Windows netsh
+- Ookla Speedtest CLI
+
+---
+
 ## Roadmap
 
-- [x] Captura de datos WiFi
-- [x] Ping
-- [x] Speedtest
-- [x] Integración con Ollama
-- [x] Informe Markdown
+### Version 0.1
 
-Próximamente:
+- ✅ WiFi information collection
+- ✅ Nearby network discovery
+- ✅ Ping measurements
+- ✅ Speedtest integration
+- ✅ JSON snapshot generation
+- ✅ AI report generation using Ollama
 
-- [ ] Históricos de ejecuciones
-- [ ] Informe HTML
-- [ ] Dashboard web
-- [ ] Agente de diagnóstico WiFi
-- [ ] Comparación entre snapshots
+### Planned Features
 
-## Licencia
+- Historical measurements
+- HTML reports
+- Interactive dashboard
+- AI diagnostic agent
+- Snapshot comparison
+- Multi-language reports
+- PDF export
 
-MIT
+---
+
+## License
+
+MIT License
+
+---
+
+## Author
+
+Daniel Blanco
+
+GitHub: https://github.com/Mr-DaniWhite
