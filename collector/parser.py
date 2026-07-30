@@ -1,6 +1,12 @@
+import json
 import re
 
-from collector.models import WifiSnapshot, WifiNetwork, PingResult
+from collector.models import (
+    WifiSnapshot,
+    WifiNetwork,
+    PingResult,
+    SpeedtestResult,
+)
 
 
 def value(text: str, field: str) -> str:
@@ -45,14 +51,12 @@ def parse_networks(text: str) -> list[WifiNetwork]:
 
         line = lines[i].strip()
 
-        # Nuevo SSID
         match = re.match(r"SSID\s+\d+\s*:\s*(.+)", line)
         if match:
             current_ssid = match.group(1).strip()
             i += 1
             continue
 
-        # Nuevo BSSID
         match = re.match(r"BSSID\s+\d+\s*:\s*(.+)", line)
         if match:
 
@@ -71,7 +75,6 @@ def parse_networks(text: str) -> list[WifiNetwork]:
 
                 line = lines[i].strip()
 
-                # Empieza otro bloque
                 if re.match(r"(SSID|BSSID)\s+\d+", line):
                     break
 
@@ -161,4 +164,24 @@ def parse_ping(text: str) -> PingResult:
         minimum_ms=minimum,
         maximum_ms=maximum,
         average_ms=average,
+    )
+
+
+def parse_speedtest(text: str) -> SpeedtestResult:
+    """
+    Parsea la salida JSON de Ookla Speedtest CLI.
+    """
+
+    data = json.loads(text)
+
+    return SpeedtestResult(
+        isp=data["isp"],
+        server=data["server"]["name"],
+        location=data["server"]["location"],
+        country=data["server"]["country"],
+        latency_ms=data["ping"]["latency"],
+        jitter_ms=data["ping"]["jitter"],
+        download_mbps=round(data["download"]["bandwidth"] * 8 / 1_000_000, 2),
+        upload_mbps=round(data["upload"]["bandwidth"] * 8 / 1_000_000, 2),
+        external_ip=data["interface"]["externalIp"],
     )

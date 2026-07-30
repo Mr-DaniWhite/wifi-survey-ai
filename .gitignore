@@ -3,33 +3,20 @@ __pycache__/
 *.py[cod]
 *.pyo
 
-# Virtual environments
+# Virtual env
 .venv/
-venv/
 
-# VS Code
+# VSCode
 .vscode/
 
-# Pytest
-.pytest_cache/
+# Environment
+.env
 
-# Ruff
-.ruff_cache/
-
-# Coverage
-.coverage
-htmlcov/
-
-# Distribution
-dist/
-build/
-*.egg-info/
+# Generated files
+data/
+reports/
+debug_prompt.txt
 
 # OS
 Thumbs.db
 .DS_Store
-
-# Project data (se puede versionar más adelante si quieres)
-data/*.json
-reports/*.html
-reports/*.pdf

@@ -33,3 +33,16 @@ class PingResult(BaseModel):
     maximum_ms: int
     average_ms: int
 
+class SpeedtestResult(BaseModel):
+    isp: str
+    server: str
+    location: str
+    country: str
+
+    latency_ms: float
+    jitter_ms: float
+
+    download_mbps: float
+    upload_mbps: float
+
+    external_ip: str
